@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="BEYOND – Dark, editorial streetwear gallery. Heavyweight fleece, distressed leather, brutalist silhouettes.">
+  <title>BEYOND – The Gallery</title>
+
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- Persistent Editorial Top Header -->
+    <header class="top-header" role="banner">
+      <button id="menuBtn" aria-label="Open Navigation Menu" aria-expanded="false">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M3 8h22M3 14h22M3 20h22"/>
+        </svg>
+      </button>
+
+      <a href="#/" class="logo" aria-label="BEYOND Home">BEYOND</a>
+
+      <a href="#/search" aria-label="Search Collection" id="headerSearchBtn">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="13" cy="13" r="8.5"/>
+          <path d="M19.5 19.5 25 25"/>
+        </svg>
+      </a>
+    </header>
+
+    <!-- Navigation Drawer Overlay -->
+    <div class="drawer-overlay" id="navDrawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+      <div class="drawer-backdrop" id="drawerBackdrop" tabindex="-1"></div>
+      <aside class="drawer-panel" aria-label="Menu Panel">
+        <div class="drawer-header">
+          <span class="drawer-brand">BEYOND</span>
+          <button class="drawer-close" id="drawerCloseBtn" aria-label="Close Navigation Menu">
+            <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+              <path d="M6 6L22 22M6 22L22 6"/>
+            </svg>
+          </button>
+        </div>
+        <nav class="drawer-nav">
+          <a href="#/" class="drawer-link" data-route="/">
+            <span class="drawer-num">01</span>
+            <span class="drawer-label">Home</span>
+          </a>
+          <a href="#/shop" class="drawer-link" data-route="/shop">
+            <span class="drawer-num">02</span>
+            <span class="drawer-label">Shop</span>
+          </a>
+          <a href="#/search" class="drawer-link" data-route="/search">
+            <span class="drawer-num">03</span>
+            <span class="drawer-label">Search</span>
+          </a>
+          <a href="#/saved" class="drawer-link" data-route="/saved">
+            <span class="drawer-num">04</span>
+            <span class="drawer-label">Saved</span>
+            <span class="drawer-badge" id="drawerSavedBadge">0</span>
+          </a>
+          <a href="#/cart" class="drawer-link" data-route="/cart">
+            <span class="drawer-num">05</span>
+            <span class="drawer-label">Cart</span>
+            <span class="drawer-badge" id="drawerCartBadge">0</span>
+          </a>
+        </nav>
+        <div class="drawer-footer">
+          <p class="drawer-edition">EDITION 01 / FALL-WINTER 2026</p>
+          <p class="drawer-tagline">BRUTALIST ARCHITECTURAL STREETWEAR</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Main Screens Viewport Container -->
+    <div class="screens-viewport">
+      <!-- SCREEN: HOME (3D Hero Section) -->
+      <section class="screen screen-home active" id="screen-home" aria-label="Featured 3D Gallery">
+        <div class="hero" id="hero" tabindex="-1">
+          <div class="stage" id="stage">
+            <!-- Dedicated Dark Concrete Wall Layer (Industrial matte stone texture) -->
+            <div class="layer wall" aria-hidden="true"></div>
+
+            <!-- Subtle diffuse ambient warm-grey light behind the wordmark -->
+            <div class="layer hero-background-light" aria-hidden="true"></div>
+
+            <!-- Oversized flat black BEYOND background wordmark behind the hoodie -->
+            <div class="layer hero-background-wordmark" aria-hidden="true">
+              <span>BEYOND</span>
+            </div>
+
+            <!-- Dynamic 3D Rack populated from products.json -->
+            <div class="layer rack" id="rack" role="region" aria-label="Featured items 3D carousel"></div>
+          </div>
+        </div>
+
+        <!-- Info Overlay (Lifted above tabs) -->
+        <div class="info" id="info">
+          <div class="bars" id="bars" role="tablist" aria-label="Featured pieces navigation"></div>
+          <div class="info-body">
+            <h2 class="name" id="name" aria-live="polite" aria-atomic="true"></h2>
+            <div class="row">
+              <div class="price">
+                <small id="cnt"></small>
+                <span id="price"></span>
+              </div>
+              <a class="view" id="viewPieceBtn" href="#/piece/distressed-moto-jacket">VIEW PIECE</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Screens for Router -->
+      <section class="screen screen-content-page" id="screen-shop" aria-label="Shop Collection"></section>
+      <section class="screen screen-content-page" id="screen-search" aria-label="Search Collection"></section>
+      <section class="screen screen-content-page" id="screen-saved" aria-label="Saved Pieces"></section>
+      <section class="screen screen-content-page" id="screen-cart" aria-label="Shopping Bag"></section>
+      <section class="screen screen-content-page" id="screen-piece" aria-label="Piece Details"></section>
+    </div>
+
+    <!-- Toast Micro-Feedback Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Persistent Bottom Navigation Bar -->
+    <nav class="tabs" id="bottomTabs" aria-label="Main Navigation">
+      <a class="tab on" href="#/" data-route="/" aria-label="Home Gallery">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M4 13 14 4l10 9v11H4zM11 24v-8h6v8"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a class="tab" href="#/shop" data-route="/shop" aria-label="Shop All">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M4 4h8v8H4zM16 4h8v8h-8zM4 16h8v8H4zM16 16h8v8h-8z"/>
+        </svg>
+        <span>Shop</span>
+      </a>
+
+      <a class="tab" href="#/search" data-route="/search" aria-label="Search">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="13" cy="13" r="8.5"/>
+          <path d="M19.5 19.5 25 25"/>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <a class="tab" href="#/saved" data-route="/saved" aria-label="Saved Pieces">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M14 24S3 17 3 10a5.5 5.5 0 0 1 11-1.5A5.5 5.5 0 0 1 25 10c0 7-11 14-11 14z"/>
+        </svg>
+        <span>Saved</span>
+        <span class="tab-badge" id="savedCountBadge">0</span>
+      </a>
+
+      <a class="tab" href="#/cart" data-route="/cart" aria-label="Shopping Cart">
+        <svg class="i" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M5 9h18l-1.5 15h-15zM10 12V8a4 4 0 0 1 8 0v4"/>
+        </svg>
+        <span>Cart</span>
+        <span class="tab-badge" id="cartCountBadge">0</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

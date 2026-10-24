@@ -1,0 +1,273 @@
+[
+  {
+    "id": "distressed-moto-jacket",
+    "name": "Distressed Moto Jacket",
+    "category": "outerwear",
+    "price": 42000,
+    "priceFormatted": "₹42,000",
+    "description": "Hand-abraded heavy steerhide with artisanal oil wash. Asymmetric gunmetal hardware and drop-shoulder boxy cut engineered for dramatic silhouette. Each piece carries unique distressing and patina.",
+    "material": "100% full-grain distressed cowhide leather. 100% Japanese cupro twill lining.",
+    "fitNotes": "Cropped boxy cut with extended sleeves. Designed to sit at the natural waist. Size up for layering.",
+    "sizes": [
+      { "size": "S", "stock": 2 },
+      { "size": "M", "stock": 4 },
+      { "size": "L", "stock": 0 },
+      { "size": "XL", "stock": 1 }
+    ],
+    "images": [
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp"
+    ],
+    "featured": true,
+    "badge": "LAST PIECES"
+  },
+  {
+    "id": "heavy-fleece-hoodie-01",
+    "name": "Heavy Fleece Hoodie 01",
+    "category": "tops",
+    "price": 8500,
+    "priceFormatted": "₹8,500",
+    "description": "600 GSM loopback French terry drenched in vintage mineral wash. Double-layered hood without drawstring for clean architectural drape. Raw edge ribbing with understated tonal embroidery.",
+    "material": "100% combed heavyweight cotton (600 GSM). Pre-shrunk with stone mineral wash.",
+    "fitNotes": "Oversized, relaxed boxy cut. Drop shoulder with stacked sleeve volume.",
+    "sizes": [
+      { "size": "S", "stock": 5 },
+      { "size": "M", "stock": 8 },
+      { "size": "L", "stock": 3 },
+      { "size": "XL", "stock": 0 }
+    ],
+    "images": [
+      "assets/products/hoodie-black.png",
+      "assets/products/hoodie-black.png",
+      "assets/products/heavy-fleece-hoodie-01.webp"
+    ],
+    "featured": true,
+    "badge": "NEW"
+  },
+  {
+    "id": "racing-spider-oversized-tee",
+    "name": "Racing Spider Oversized Tee",
+    "category": "tops",
+    "price": 6500,
+    "priceFormatted": "₹6,500",
+    "description": "310 GSM combed cotton jersey featuring hand-pulled cracked discharge print. Enzyme washed for a decayed vintage drape that contours naturally. Reinforced rib collar with dropped armholes.",
+    "material": "100% high-density combed jersey (310 GSM). Cracked solvent ink screenprint.",
+    "fitNotes": "Wide, relaxed oversized fit. Elongated sleeve length falling below the elbow.",
+    "sizes": [
+      { "size": "S", "stock": 6 },
+      { "size": "M", "stock": 12 },
+      { "size": "L", "stock": 7 },
+      { "size": "XL", "stock": 4 }
+    ],
+    "images": [
+      "assets/products/racing-spider-tee.webp",
+      "assets/products/racing-spider-tee.webp",
+      "assets/products/racing-spider-tee.webp"
+    ],
+    "featured": true,
+    "badge": null
+  },
+  {
+    "id": "raw-plaster-hoodie-02",
+    "name": "Raw Plaster Hoodie 02",
+    "category": "tops",
+    "price": 8500,
+    "priceFormatted": "₹8,500",
+    "description": "Heavyweight bone plaster terry treated with subtle wax resist and clay bath. Features raw-cut hems, exposed overlock stitching, and ergonomic thumbhole cuffs. Subdued chalk tone developed exclusively for this drop.",
+    "material": "100% custom dye-cast cotton fleece (580 GSM). Pigment hand-dyed.",
+    "fitNotes": "Sculptural drop shoulder with cropped hem. Fits boxy through the chest.",
+    "sizes": [
+      { "size": "S", "stock": 3 },
+      { "size": "M", "stock": 0 },
+      { "size": "L", "stock": 5 },
+      { "size": "XL", "stock": 2 }
+    ],
+    "images": [
+      "assets/products/hoodie-grey.png",
+      "assets/products/hoodie-grey.png",
+      "assets/products/raw-plaster-hoodie-02.webp"
+    ],
+    "featured": true,
+    "badge": "NEW"
+  },
+  {
+    "id": "waxed-cargo-pants",
+    "name": "Waxed Cargo Pants",
+    "category": "bottoms",
+    "price": 11500,
+    "priceFormatted": "₹11,500",
+    "description": "Paraffin wax coated cotton canvas engineered with 8 modular flap pockets. Articulated knee darts and cinch hems allow transformation between straight and tapered silhouettes. Water-resistant matte finish.",
+    "material": "100% heavy cotton duck canvas with paraffin wax impregnation. Matte black snap hardware.",
+    "fitNotes": "Relaxed straight leg with adjustable drawcord cuff. True to size at waist.",
+    "sizes": [
+      { "size": "30", "stock": 4 },
+      { "size": "32", "stock": 6 },
+      { "size": "34", "stock": 3 },
+      { "size": "36", "stock": 0 }
+    ],
+    "images": [
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp"
+    ],
+    "featured": false,
+    "badge": null
+  },
+  {
+    "id": "acid-wash-denim-trucker",
+    "name": "Acid Wash Denim Trucker",
+    "category": "outerwear",
+    "price": 16000,
+    "priceFormatted": "₹16,000",
+    "description": "14.5 oz Japanese selvedge denim subjected to harsh potassium acid treatment. Features distressed fraying on collar and cuffs with antiqued silver shank buttons. Unlined for raw drape.",
+    "material": "100% Kurabo Japanese denim (14.5 oz). Custom forged iron buttons.",
+    "fitNotes": "Boxy trucker silhouette with lowered chest pockets. True to size.",
+    "sizes": [
+      { "size": "S", "stock": 2 },
+      { "size": "M", "stock": 4 },
+      { "size": "L", "stock": 1 },
+      { "size": "XL", "stock": 0 }
+    ],
+    "images": [
+      "assets/products/bomber-jacket.png",
+      "assets/products/bomber-jacket.png",
+      "assets/products/bomber-jacket.png"
+    ],
+    "featured": false,
+    "badge": "LAST PIECES"
+  },
+  {
+    "id": "raw-hem-straight-jeans",
+    "name": "Raw Hem Straight Jeans",
+    "category": "bottoms",
+    "price": 12500,
+    "priceFormatted": "₹12,500",
+    "description": "Rigid black warp and ecru weft denim with frayed scissor-cut hems. Natural whisker fades and honeycombs created through manual stone scraping. Hidden selvedge coin pocket detail.",
+    "material": "100% unwashed cotton selvedge denim (13.75 oz).",
+    "fitNotes": "Classic straight leg with medium rise. Full break over footwear.",
+    "sizes": [
+      { "size": "30", "stock": 3 },
+      { "size": "32", "stock": 5 },
+      { "size": "34", "stock": 4 },
+      { "size": "36", "stock": 2 }
+    ],
+    "images": [
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp"
+    ],
+    "featured": false,
+    "badge": null
+  },
+  {
+    "id": "heavy-sweatpants-01",
+    "name": "Heavy Sweatpants 01",
+    "category": "bottoms",
+    "price": 7500,
+    "priceFormatted": "₹7,500",
+    "description": "500 GSM thermal French terry cut in an aggressive stacked silhouette. Deep slash pockets with hidden zip security pouch. Thick elastic waistband with elongated bleached drawstrings.",
+    "material": "100% organic cotton French terry (500 GSM). Raw wash finish.",
+    "fitNotes": "Loose through thigh with subtle taper and heavy stacking at the ankle.",
+    "sizes": [
+      { "size": "S", "stock": 4 },
+      { "size": "M", "stock": 7 },
+      { "size": "L", "stock": 5 },
+      { "size": "XL", "stock": 3 }
+    ],
+    "images": [
+      "assets/products/hoodie-black.png",
+      "assets/products/hoodie-black.png",
+      "assets/products/hoodie-black.png"
+    ],
+    "featured": false,
+    "badge": null
+  },
+  {
+    "id": "washed-boxy-tee-02",
+    "name": "Washed Boxy Tee 02",
+    "category": "tops",
+    "price": 5500,
+    "priceFormatted": "₹5,500",
+    "description": "Minimalist heavyweight tee in asphalt wash with blind stitch hems. Seamless tubular construction prevents twisting. Subtle vertical spine seam detail along the back.",
+    "material": "100% ring-spun heavyweight cotton (290 GSM).",
+    "fitNotes": "Square boxy fit with dropped shoulders and a higher, tighter neck collar.",
+    "sizes": [
+      { "size": "S", "stock": 8 },
+      { "size": "M", "stock": 14 },
+      { "size": "L", "stock": 9 },
+      { "size": "XL", "stock": 0 }
+    ],
+    "images": [
+      "assets/products/racing-spider-tee.webp",
+      "assets/products/racing-spider-tee.webp",
+      "assets/products/racing-spider-tee.webp"
+    ],
+    "featured": false,
+    "badge": "NEW"
+  },
+  {
+    "id": "cracked-leather-biker-boots",
+    "name": "Cracked Leather Biker Boots",
+    "category": "footwear",
+    "price": 24000,
+    "priceFormatted": "₹24,000",
+    "description": "Handcrafted Goodyear welted boots in cracked white-over-black calfskin. Thick commando lug sole with squared architectural toe. Antiqued side zip with custom brutalist pull tab.",
+    "material": "Full-grain calfskin leather with cracked wax finish. Vibram commando lug outsole.",
+    "fitNotes": "True to size. Fits comfortably with thick wool socks.",
+    "sizes": [
+      { "size": "40", "stock": 2 },
+      { "size": "41", "stock": 3 },
+      { "size": "42", "stock": 4 },
+      { "size": "43", "stock": 2 },
+      { "size": "44", "stock": 1 }
+    ],
+    "images": [
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp"
+    ],
+    "featured": false,
+    "badge": "LAST PIECES"
+  },
+  {
+    "id": "distressed-knit-beanie",
+    "name": "Distressed Knit Beanie",
+    "category": "accessories",
+    "price": 3500,
+    "priceFormatted": "₹3,500",
+    "description": "Chunky ribbed beanie spun from unbleached merino wool and brushed mohair. Finished with manual hand-fraying along the crown and foldover cuff. Breathable yet insulating.",
+    "material": "70% extrafine merino wool, 30% kid mohair.",
+    "fitNotes": "One size fits all. Relaxed slouch or double-cuffed fitted wear.",
+    "sizes": [
+      { "size": "ONE SIZE", "stock": 15 }
+    ],
+    "images": [
+      "assets/products/hoodie-grey.png",
+      "assets/products/hoodie-grey.png",
+      "assets/products/hoodie-grey.png"
+    ],
+    "featured": false,
+    "badge": null
+  },
+  {
+    "id": "waxed-canvas-tote",
+    "name": "Waxed Canvas Tote",
+    "category": "accessories",
+    "price": 4500,
+    "priceFormatted": "₹4,500",
+    "description": "Utilitarian oversized tote in 18 oz blackened waxed canvas. Features reinforced seatbelt webbing handles and interior padded sleeve accommodating up to 16\" laptops. Solid brass hardware.",
+    "material": "18 oz water-repellent waxed canvas. Bridle leather trim.",
+    "fitNotes": "Dimensions: 46cm W x 42cm H x 14cm D. 28cm handle drop.",
+    "sizes": [
+      { "size": "ONE SIZE", "stock": 10 }
+    ],
+    "images": [
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp",
+      "assets/products/moto-jacket.webp"
+    ],
+    "featured": false,
+    "badge": "NEW"
+  }
+]
