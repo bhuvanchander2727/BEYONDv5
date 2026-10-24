@@ -274,7 +274,7 @@ svg.i {
       transparent 58%,
       rgba(26, 25, 24, 0.25) 100%
     ),
-    url('assets/ui/concrete-texture.png');
+    url('assets/ui/concrete-texture.webp');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -349,8 +349,8 @@ svg.i {
   position: absolute;
   left: 0;
   right: 0;
-  top: max(74px, 10.5%);
-  height: 53%;
+  top: max(68px, 8.2%);
+  height: 64%;
   perspective: 1100px;
   transform-style: preserve-3d;
   transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
@@ -394,10 +394,10 @@ svg.i {
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
-  transform: translateZ(12px);
-  filter: drop-shadow(0 5px 12px rgba(14, 14, 13, 0.22))
-          drop-shadow(0 16px 30px rgba(14, 14, 13, 0.14))
-          drop-shadow(0 30px 48px rgba(14, 14, 13, 0.08));
+  transform: translate3d(0, 0, 0);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  filter: drop-shadow(0 14px 28px rgba(14, 14, 13, 0.35));
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   opacity: 1 !important;
@@ -423,7 +423,7 @@ svg.i {
   filter: blur(6px);
   pointer-events: none;
   z-index: 1;
-  transform: translateZ(-12px) scaleY(0.55);
+  transform: scaleY(0.55);
 }
 
 /* Info Panel (LIFTED CLEANLY ABOVE TABS)
@@ -580,8 +580,8 @@ button:focus-visible, a:focus-visible {
 /* Viewport Adjustments for Small Mobiles (375x667, 360x640) */
 @media (max-height: 670px) {
   .rack {
-    top: max(64px, 10%);
-    height: 48%;
+    top: max(62px, 8%);
+    height: 58%;
   }
   .hero-background-wordmark {
     top: 22%;

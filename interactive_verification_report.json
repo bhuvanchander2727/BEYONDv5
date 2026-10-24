@@ -1,0 +1,129 @@
+{
+  "header": {
+    "drawerOpen": {
+      "isOpen": true,
+      "ariaExpanded": "true",
+      "ariaHidden": "false"
+    },
+    "drawerClosedBtn": {
+      "isOpen": false,
+      "ariaExpanded": "false"
+    },
+    "drawerClosedEsc": true,
+    "searchScreen": {
+      "hash": "#/search",
+      "isSearchScreenActive": true,
+      "isSearchTabActive": true,
+      "searchInputExists": true
+    },
+    "logoReturn": {
+      "hash": "#/",
+      "isHomeScreenActive": true,
+      "currentPiece": "Distressed Moto Jacket"
+    }
+  },
+  "carousel": {
+    "piece_0": {
+      "name": "Distressed Moto Jacket",
+      "price": "₹42,000",
+      "cnt": "01 / 04",
+      "href": "#/piece/distressed-moto-jacket",
+      "visibleItems": 1
+    },
+    "piece_1": {
+      "name": "Heavy Fleece Hoodie 01",
+      "price": "₹8,500",
+      "cnt": "02 / 04",
+      "href": "#/piece/heavy-fleece-hoodie-01",
+      "visibleItems": 1
+    },
+    "piece_2": {
+      "name": "Racing Spider Oversized Tee",
+      "price": "₹6,500",
+      "cnt": "03 / 04",
+      "href": "#/piece/racing-spider-oversized-tee",
+      "visibleItems": 1
+    },
+    "piece_3": {
+      "name": "Raw Plaster Hoodie 02",
+      "price": "₹8,500",
+      "cnt": "04 / 04",
+      "href": "#/piece/raw-plaster-hoodie-02",
+      "visibleItems": 1
+    },
+    "keyboard": {
+      "afterArrowLeft": "Racing Spider Oversized Tee",
+      "afterHome": "Distressed Moto Jacket"
+    }
+  },
+  "viewPiece": {
+    "piece_0": {
+      "hash": "#/piece/distressed-moto-jacket",
+      "title": "Distressed Moto Jacket",
+      "price": "₹42,000",
+      "hasAddBtn": true,
+      "hasSaveBtn": true
+    },
+    "piece_1": {
+      "hash": "#/piece/heavy-fleece-hoodie-01",
+      "title": "Heavy Fleece Hoodie 01",
+      "price": "₹8,500",
+      "hasAddBtn": true,
+      "hasSaveBtn": true
+    },
+    "piece_2": {
+      "hash": "#/piece/racing-spider-oversized-tee",
+      "title": "Racing Spider Oversized Tee",
+      "price": "₹6,500",
+      "hasAddBtn": true,
+      "hasSaveBtn": true
+    },
+    "piece_3": {
+      "hash": "#/piece/raw-plaster-hoodie-02",
+      "title": "Raw Plaster Hoodie 02",
+      "price": "₹8,500",
+      "hasAddBtn": true,
+      "hasSaveBtn": true
+    }
+  },
+  "bottomNav": {
+    "searchMatches": {
+      "status": "FOUND 2 PIECES",
+      "cardsCount": 2
+    },
+    "shop": {
+      "hash": "#/shop",
+      "isShopActive": true,
+      "isShopTabOn": true,
+      "cardsCount": 0,
+      "filterButtons": 0
+    },
+    "saved": {
+      "hash": "#/saved",
+      "isSavedActive": true,
+      "isSavedTabOn": true,
+      "savedCards": 1
+    },
+    "cart": {
+      "hash": "#/cart",
+      "isCartActive": true,
+      "isCartTabOn": true,
+      "itemsCount": 1,
+      "totalText": "ESTIMATED TOTAL:\n                ₹42,000"
+    },
+    "home": {
+      "hash": "#/",
+      "isHomeActive": true,
+      "isHomeTabOn": true
+    }
+  },
+  "state": {
+    "badges": {
+      "cartBadge": "1",
+      "savedBadge": "1",
+      "drawerCartBadge": "1",
+      "drawerSavedBadge": "1"
+    }
+  },
+  "screenshots": []
+}

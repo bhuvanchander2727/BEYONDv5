@@ -6,9 +6,14 @@
   <meta name="description" content="BEYOND – Dark, editorial streetwear gallery. Heavyweight fleece, distressed leather, brutalist silhouettes.">
   <title>BEYOND – The Gallery</title>
 
-  <!-- Google Fonts Preconnect & Stylesheet -->
+  <!-- Critical Hero Image Preloads -->
+  <link rel="preload" as="image" href="assets/ui/concrete-texture.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/products/moto-jacket.webp" type="image/webp" fetchpriority="high">
+
+  <!-- External CDNs & Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
@@ -93,20 +98,30 @@
               <span>BEYOND</span>
             </div>
 
-            <!-- Dynamic 3D Rack populated from products.json -->
-            <div class="layer rack" id="rack" role="region" aria-label="Featured items 3D carousel"></div>
+            <!-- Dynamic 3D Rack populated from products -->
+            <div class="layer rack" id="rack" role="region" aria-label="Featured items 3D carousel">
+              <div class="item" tabindex="0" role="button" aria-label="Distressed Moto Jacket, ₹42,000" data-id="distressed-moto-jacket" data-index="0" style="display: block; transform: translate3d(0, 0, 0); opacity: 1; z-index: 20; pointer-events: auto;" aria-hidden="false">
+                <div class="pad"></div>
+                <img class="product-img" src="assets/products/moto-jacket.webp" alt="Distressed Moto Jacket" draggable="false" decoding="async" loading="eager" fetchpriority="high" />
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Info Overlay (Lifted above tabs) -->
         <div class="info" id="info">
-          <div class="bars" id="bars" role="tablist" aria-label="Featured pieces navigation"></div>
+          <div class="bars" id="bars" role="tablist" aria-label="Featured pieces navigation">
+            <button type="button" role="tab" aria-label="Piece 1: Distressed Moto Jacket" class="on" aria-selected="true"></button>
+            <button type="button" role="tab" aria-label="Piece 2: Heavy Fleece Hoodie 01" aria-selected="false"></button>
+            <button type="button" role="tab" aria-label="Piece 3: Racing Spider Oversized Tee" aria-selected="false"></button>
+            <button type="button" role="tab" aria-label="Piece 4: Raw Plaster Hoodie 02" aria-selected="false"></button>
+          </div>
           <div class="info-body">
-            <h2 class="name" id="name" aria-live="polite" aria-atomic="true"></h2>
+            <h2 class="name" id="name" aria-live="polite" aria-atomic="true">Distressed Moto Jacket</h2>
             <div class="row">
               <div class="price">
-                <small id="cnt"></small>
-                <span id="price"></span>
+                <small id="cnt">01 / 04</small>
+                <span id="price">₹42,000</span>
               </div>
               <a class="view" id="viewPieceBtn" href="#/piece/distressed-moto-jacket">VIEW PIECE</a>
             </div>
@@ -167,6 +182,13 @@
     </nav>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Supabase JS Client v2 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Public Configuration (gitignored) -->
+  <script defer src="config.js" onerror="void 0"></script>
+  <!-- Unified Supabase Client Module -->
+  <script defer src="supabaseClient.js"></script>
+  <!-- Main Storefront Application -->
+  <script defer src="app.js"></script>
 </body>
 </html>

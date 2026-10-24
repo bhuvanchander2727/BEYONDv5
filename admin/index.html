@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BEYOND — Owner Management Portal</title>
+  
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="admin.css">
+  
+  <!-- Supabase JS Client v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ==============================================================================
+       1. AUTHENTICATION & LOGIN VIEW
+       ============================================================================== -->
+  <div id="authView" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-brand">BEYOND</div>
+      <div class="auth-subtitle">OWNER MANAGEMENT PORTAL &bull; RESTRICTED</div>
+
+      <div id="authError" class="auth-error" role="alert"></div>
+
+      <form id="loginForm" autocomplete="on">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Owner Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="owner@beyond-streetwear.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Master Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required autocomplete="current-password" />
+        </div>
+
+        <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+          <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ash-grey); cursor: pointer;">
+            <input type="checkbox" id="rememberMe" checked style="accent-color: var(--btn-greige);" />
+            <span>Keep session active</span>
+          </label>
+          <a href="../#/" style="font-size: 11px; color: var(--concrete-greige); text-decoration: none;">&larr; Return to Store</a>
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn-primary">
+          <span>Authenticate &bull; Enter Portal</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       2. AUTHENTICATED ADMIN APP SHELL
+       ============================================================================== -->
+  <div id="appShell" class="admin-shell" style="display: none;">
+    <!-- Collapsible Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Portal Navigation">
+      <div class="sidebar-header">
+        <a href="#/dashboard" class="sidebar-brand">BEYOND</a>
+        <span class="sidebar-badge">OWNER</span>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Section: Overview -->
+        <div class="sidebar-group-title">Overview</div>
+        <a href="#/dashboard" class="sidebar-link" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><path d="M3 3h7v9H3zm11 0h7v5h-7zm0 9h7v9h-7zM3 16h7v5H3z"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#/analytics" class="sidebar-link" data-section="analytics">
+          <svg viewBox="0 0 24 24"><path d="M18 20V10m-6 10V4m-6 10v6"/></svg>
+          <span>Analytics & Reports</span>
+        </a>
+
+        <!-- Section: Catalogue -->
+        <div class="sidebar-group-title">Catalogue</div>
+        <a href="#/products" class="sidebar-link" data-section="products">
+          <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          <span>Products</span>
+          <span class="nav-counter" id="navProductCount">12</span>
+        </a>
+        <a href="#/categories" class="sidebar-link" data-section="categories">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+          <span>Categories & Collections</span>
+        </a>
+        <a href="#/inventory" class="sidebar-link" data-section="inventory">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          <span>Inventory & Sizing</span>
+        </a>
+
+        <!-- Section: Sales & Fulfilment -->
+        <div class="sidebar-group-title">Sales & Fulfilment</div>
+        <a href="#/orders" class="sidebar-link" data-section="orders">
+          <svg viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>Orders</span>
+          <span class="nav-counter" id="navOrderCount">0</span>
+        </a>
+        <a href="#/customers" class="sidebar-link" data-section="customers">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m8-10a4 4 0 100-8 4 4 0 000 8z"/></svg>
+          <span>Customers</span>
+        </a>
+        <a href="#/payments" class="sidebar-link" data-section="payments">
+          <svg viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          <span>Payments & COD</span>
+        </a>
+        <a href="#/shipping" class="sidebar-link" data-section="shipping">
+          <svg viewBox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+          <span>Shipping & Tracking</span>
+        </a>
+
+        <!-- Section: Marketing & Content -->
+        <div class="sidebar-group-title">Marketing & Content</div>
+        <a href="#/homepage" class="sidebar-link" data-section="homepage">
+          <svg viewBox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+          <span>Homepage & Lookbook</span>
+        </a>
+        <a href="#/discounts" class="sidebar-link" data-section="discounts">
+          <svg viewBox="0 0 24 24"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          <span>Discounts & Coupons</span>
+        </a>
+        <a href="#/reviews" class="sidebar-link" data-section="reviews">
+          <svg viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          <span>Reviews Moderation</span>
+        </a>
+
+        <!-- Section: Configuration -->
+        <div class="sidebar-group-title">Configuration</div>
+        <a href="#/settings" class="sidebar-link" data-section="settings">
+          <svg viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Store Settings</span>
+        </a>
+        <a href="#/security" class="sidebar-link" data-section="security">
+          <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span>Account & Security</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <span class="sidebar-user-role">STORE OWNER</span>
+          <span class="sidebar-user-email" id="sidebarUserEmail">owner@beyond.com</span>
+        </div>
+        <button id="logoutBtn" class="sidebar-logout-btn" title="Sign Out of Portal" aria-label="Sign Out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="admin-main">
+      <!-- Persistent Topbar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button id="mobileMenuBtn" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <h1 class="topbar-title" id="topbarTitle">Dashboard</h1>
+        </div>
+
+        <div class="topbar-right">
+          <span class="badge badge-paid" id="liveSyncBadge">LIVE &bull; SYNCED</span>
+          <a href="../#/" target="_blank" rel="noopener noreferrer" class="topbar-view-site">
+            <span>View Storefront</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6m4-3h6v6m-11 5L21 3"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Dynamic Content Mount -->
+      <div class="admin-content" id="adminContent">
+        <!-- Rendered dynamically by admin.js based on window.location.hash -->
+      </div>
+    </main>
+  </div>
+
+  <!-- ==============================================================================
+       3. REUSABLE MODAL DIALOG
+       ============================================================================== -->
+  <div class="modal-overlay" id="adminModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Modal Title</h3>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       4. TOAST NOTIFICATIONS
+       ============================================================================== -->
+  <div class="toast-container" id="adminToast" role="status" aria-live="polite"></div>
+
+  <!-- Supabase Public Client Config (Optional local file, ignored if not present) -->
+  <script src="config.js" onerror="void 0"></script>
+  <!-- Admin Controller -->
+  <script src="admin.js"></script>
+</body>
+</html>

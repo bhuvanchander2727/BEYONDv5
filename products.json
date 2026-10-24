@@ -17,7 +17,7 @@
     "images": [
       "assets/products/moto-jacket.webp",
       "assets/products/moto-jacket.webp",
-      "assets/products/moto-jacket.webp"
+      "assets/products/moto-jacket.png"
     ],
     "featured": true,
     "badge": "LAST PIECES"
@@ -38,9 +38,9 @@
       { "size": "XL", "stock": 0 }
     ],
     "images": [
-      "assets/products/hoodie-black.png",
-      "assets/products/hoodie-black.png",
-      "assets/products/heavy-fleece-hoodie-01.webp"
+      "assets/products/hoodie-black.webp",
+      "assets/products/heavy-fleece-hoodie-01.webp",
+      "assets/products/hoodie-black.png"
     ],
     "featured": true,
     "badge": "NEW"
@@ -63,7 +63,7 @@
     "images": [
       "assets/products/racing-spider-tee.webp",
       "assets/products/racing-spider-tee.webp",
-      "assets/products/racing-spider-tee.webp"
+      "assets/products/racing-spider-tee.png"
     ],
     "featured": true,
     "badge": null
@@ -84,9 +84,9 @@
       { "size": "XL", "stock": 2 }
     ],
     "images": [
-      "assets/products/hoodie-grey.png",
-      "assets/products/hoodie-grey.png",
-      "assets/products/raw-plaster-hoodie-02.webp"
+      "assets/products/hoodie-grey.webp",
+      "assets/products/raw-plaster-hoodie-02.webp",
+      "assets/products/hoodie-grey.png"
     ],
     "featured": true,
     "badge": "NEW"

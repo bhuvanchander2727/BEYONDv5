@@ -112,8 +112,8 @@
       // Tablet
       iw = Math.round(Math.min(rh * 0.86, 500));
     } else {
-      // Mobile: prominent scale with balanced padding, preventing overlap with info/tabs
-      iw = Math.round(Math.min(rw * 0.86, rh * 0.85));
+      // Mobile: prominent hero scale (+20-25% visible size) proportioned to rack height while maintaining balanced side margins
+      iw = Math.round(rh * 0.77);
     }
 
     rack.style.setProperty('--iw', iw + 'px');
@@ -201,14 +201,24 @@
   }
 
   // 3D Restrained Parallax Tilt - Affects ONLY the product and its shadows
-  function setParallax(x, y) {
+  function setParallax(x, y, isMobile) {
     if (!rack) return;
     x = Math.max(-1, Math.min(1, x));
     y = Math.max(-1, Math.min(1, y));
-    rack.style.setProperty('--ry', (x * 5.5).toFixed(2) + 'deg');
-    rack.style.setProperty('--rx', (-y * 4.0).toFixed(2) + 'deg');
-    rack.style.setProperty('--tx', (x * 12).toFixed(1) + 'px');
-    rack.style.setProperty('--ty', (y * 8).toFixed(1) + 'px');
+
+    if (isMobile) {
+      // Enhanced mobile gyroscope sensitivity: responsive to small phone movements with smooth natural motion
+      rack.style.setProperty('--ry', (x * 10.5).toFixed(2) + 'deg');
+      rack.style.setProperty('--rx', (-y * 7.5).toFixed(2) + 'deg');
+      rack.style.setProperty('--tx', (x * 12).toFixed(1) + 'px');
+      rack.style.setProperty('--ty', (y * 8).toFixed(1) + 'px');
+    } else {
+      // Preserved exact desktop mouse-based interaction
+      rack.style.setProperty('--ry', (x * 5.5).toFixed(2) + 'deg');
+      rack.style.setProperty('--rx', (-y * 4.0).toFixed(2) + 'deg');
+      rack.style.setProperty('--tx', (x * 12).toFixed(1) + 'px');
+      rack.style.setProperty('--ty', (y * 8).toFixed(1) + 'px');
+    }
   }
 
   // Initialize Hero UI from Products Data
@@ -235,9 +245,10 @@
       el.dataset.index = k;
 
       const imgUrl = p.images[0];
+      const isPrimary = k === 0;
       el.innerHTML = `
         <div class="pad"></div>
-        <img class="product-img" src="${imgUrl}" alt="${p.name}" draggable="false" />
+        <img class="product-img" src="${imgUrl}" alt="${p.name}" draggable="false" decoding="async" ${isPrimary ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} />
       `;
 
       // Item Interaction: tap/click opens piece details
@@ -277,6 +288,13 @@
     });
 
     bs = [].slice.call(bars.children);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const pieceParam = parseInt(urlParams.get('piece'), 10);
+    if (!isNaN(pieceParam) && pieceParam >= 1 && pieceParam <= N) {
+      pos = pieceParam - 1;
+      target = pieceParam - 1;
+    }
 
     size();
     render();
@@ -378,14 +396,35 @@
 
     // Mobile Gyroscope Parallax (Preserves tilt, affects only product and shadow, NO tilt button)
     let gyroBase = null;
+    let smoothX = 0;
+    let smoothY = 0;
+
     function handleOrientation(e) {
       if (e.beta === null || e.gamma === null) return;
       if (!gyroBase) {
         gyroBase = { b: e.beta, g: e.gamma };
       }
-      const x = Math.max(-1, Math.min(1, (e.gamma - gyroBase.g) / 22));
-      const y = Math.max(-1, Math.min(1, (e.beta - gyroBase.b) / 22));
-      setParallax(x, y);
+
+      // Gentle dynamic centering so the resting angle smoothly follows posture adjustments
+      gyroBase.b += (e.beta - gyroBase.b) * 0.008;
+      gyroBase.g += (e.gamma - gyroBase.g) * 0.008;
+
+      let dx = e.gamma - gyroBase.g;
+      let dy = e.beta - gyroBase.b;
+
+      // Small 0.25deg deadzone eliminates sensor jitter when holding device still
+      if (Math.abs(dx) < 0.25) dx = 0;
+      if (Math.abs(dy) < 0.25) dy = 0;
+
+      // Sensitivity divisor tuned from 22 to 11 for immediate, noticeable response to small wrist movements
+      const targetX = Math.max(-1, Math.min(1, dx / 11));
+      const targetY = Math.max(-1, Math.min(1, dy / 11));
+
+      // Exponential smoothing filter for fluid, natural 3D motion without abrupt jumps
+      smoothX += (targetX - smoothX) * 0.35;
+      smoothY += (targetY - smoothY) * 0.35;
+
+      setParallax(smoothX, smoothY, true);
     }
 
     const D = window.DeviceOrientationEvent;
@@ -1342,101 +1381,142 @@
 
   window.addEventListener('hashchange', route);
 
-  // Fetch Products Data (with embedded fallback for local file execution)
-  fetch('products.json')
-    .then(function (res) {
-      if (!res.ok) throw new Error('Network response not ok');
-      return res.json();
-    })
-    .then(function (data) {
-      initHero(data);
-      updateBadges();
-      loop();
-      route();
-    })
-    .catch(function (err) {
-      console.warn('Loading products via fetch failed, using fallback:', err);
-      const fallback = [
-        {
-          id: 'distressed-moto-jacket',
-          name: 'Distressed Moto Jacket',
-          category: 'outerwear',
-          price: 42000,
-          priceFormatted: '₹42,000',
-          description: 'Hand-abraded heavy steerhide with artisanal oil wash.',
-          material: '100% full-grain distressed cowhide leather.',
-          fitNotes: 'Cropped boxy cut with extended sleeves.',
-          sizes: [
-            { size: 'S', stock: 2 },
-            { size: 'M', stock: 4 },
-            { size: 'L', stock: 0 },
-            { size: 'XL', stock: 1 }
-          ],
-          images: ['assets/products/moto-jacket.webp'],
-          featured: true,
-          badge: 'LAST PIECES'
-        },
-        {
-          id: 'heavy-fleece-hoodie-01',
-          name: 'Heavy Fleece Hoodie 01',
-          category: 'tops',
-          price: 8500,
-          priceFormatted: '₹8,500',
-          description: '600 GSM loopback French terry drenched in vintage mineral wash.',
-          material: '100% combed heavyweight cotton.',
-          fitNotes: 'Oversized, relaxed boxy cut.',
-          sizes: [
-            { size: 'S', stock: 5 },
-            { size: 'M', stock: 8 },
-            { size: 'L', stock: 3 },
-            { size: 'XL', stock: 0 }
-          ],
-          images: ['assets/products/hoodie-black.png'],
-          featured: true,
-          badge: 'NEW'
-        },
-        {
-          id: 'racing-spider-oversized-tee',
-          name: 'Racing Spider Oversized Tee',
-          category: 'tops',
-          price: 6500,
-          priceFormatted: '₹6,500',
-          description: '310 GSM combed cotton jersey featuring hand-pulled cracked discharge print.',
-          material: '100% high-density combed jersey.',
-          fitNotes: 'Wide, relaxed oversized fit.',
-          sizes: [
-            { size: 'S', stock: 6 },
-            { size: 'M', stock: 12 },
-            { size: 'L', stock: 7 },
-            { size: 'XL', stock: 4 }
-          ],
-          images: ['assets/products/racing-spider-tee.webp'],
-          featured: true,
-          badge: null
-        },
-        {
-          id: 'raw-plaster-hoodie-02',
-          name: 'Raw Plaster Hoodie 02',
-          category: 'tops',
-          price: 8500,
-          priceFormatted: '₹8,500',
-          description: 'Heavyweight bone plaster terry treated with subtle wax resist and clay bath.',
-          material: '100% custom dye-cast cotton fleece.',
-          fitNotes: 'Sculptural drop shoulder with cropped hem.',
-          sizes: [
-            { size: 'S', stock: 3 },
-            { size: 'M', stock: 0 },
-            { size: 'L', stock: 5 },
-            { size: 'XL', stock: 2 }
-          ],
-          images: ['assets/products/hoodie-grey.png'],
-          featured: true,
-          badge: 'NEW'
+  // Initial Featured Pieces for instant, non-blocking 0ms hero render & hydration
+  const INITIAL_PRODUCTS = [
+    {
+      id: 'distressed-moto-jacket',
+      name: 'Distressed Moto Jacket',
+      category: 'outerwear',
+      price: 42000,
+      priceFormatted: '₹42,000',
+      description: 'Hand-abraded heavy steerhide with artisanal oil wash.',
+      material: '100% full-grain distressed cowhide leather.',
+      fitNotes: 'Cropped boxy cut with extended sleeves.',
+      sizes: [
+        { size: 'S', stock: 2 },
+        { size: 'M', stock: 4 },
+        { size: 'L', stock: 0 },
+        { size: 'XL', stock: 1 }
+      ],
+      images: ['assets/products/moto-jacket.webp', 'assets/products/moto-jacket.webp', 'assets/products/moto-jacket.png'],
+      featured: true,
+      badge: 'LAST PIECES'
+    },
+    {
+      id: 'heavy-fleece-hoodie-01',
+      name: 'Heavy Fleece Hoodie 01',
+      category: 'tops',
+      price: 8500,
+      priceFormatted: '₹8,500',
+      description: '600 GSM loopback French terry drenched in vintage mineral wash.',
+      material: '100% combed heavyweight cotton.',
+      fitNotes: 'Oversized, relaxed boxy cut.',
+      sizes: [
+        { size: 'S', stock: 5 },
+        { size: 'M', stock: 8 },
+        { size: 'L', stock: 3 },
+        { size: 'XL', stock: 0 }
+      ],
+      images: ['assets/products/hoodie-black.webp', 'assets/products/heavy-fleece-hoodie-01.webp', 'assets/products/hoodie-black.png'],
+      featured: true,
+      badge: 'NEW'
+    },
+    {
+      id: 'racing-spider-oversized-tee',
+      name: 'Racing Spider Oversized Tee',
+      category: 'tops',
+      price: 6500,
+      priceFormatted: '₹6,500',
+      description: '310 GSM combed cotton jersey featuring hand-pulled cracked discharge print.',
+      material: '100% high-density combed jersey.',
+      fitNotes: 'Wide, relaxed oversized fit.',
+      sizes: [
+        { size: 'S', stock: 6 },
+        { size: 'M', stock: 12 },
+        { size: 'L', stock: 7 },
+        { size: 'XL', stock: 4 }
+      ],
+      images: ['assets/products/racing-spider-tee.webp', 'assets/products/racing-spider-tee.webp', 'assets/products/racing-spider-tee.png'],
+      featured: true,
+      badge: null
+    },
+    {
+      id: 'raw-plaster-hoodie-02',
+      name: 'Raw Plaster Hoodie 02',
+      category: 'tops',
+      price: 8500,
+      priceFormatted: '₹8,500',
+      description: 'Heavyweight bone plaster terry treated with subtle wax resist and clay bath.',
+      material: '100% custom dye-cast cotton fleece.',
+      fitNotes: 'Sculptural drop shoulder with cropped hem.',
+      sizes: [
+        { size: 'S', stock: 3 },
+        { size: 'M', stock: 0 },
+        { size: 'L', stock: 5 },
+        { size: 'XL', stock: 2 }
+      ],
+      images: ['assets/products/hoodie-grey.webp', 'assets/products/raw-plaster-hoodie-02.webp', 'assets/products/hoodie-grey.png'],
+      featured: true,
+      badge: 'NEW'
+    }
+  ];
+
+  // Fetch Products Data Asynchronously in background without blocking initial hero render
+  async function loadProductsAsync() {
+    let products = null;
+
+    // 1. Try real Supabase database
+    if (window.BeyondSupabase && typeof window.BeyondSupabase.fetchProducts === 'function') {
+      try {
+        products = await window.BeyondSupabase.fetchProducts();
+        if (products && products.length > 0) {
+          console.info(`[BEYOND] Successfully loaded ${products.length} live products from Supabase.`);
         }
-      ];
-      initHero(fallback);
+      } catch (err) {
+        console.warn('[BEYOND] Failed to fetch products from Supabase:', err);
+      }
+    }
+
+    // 2. Fallback to local products.json if Supabase returned 0 rows or is unconfigured
+    if (!products || products.length === 0) {
+      try {
+        const res = await fetch('products.json');
+        if (res.ok) {
+          products = await res.json();
+          console.info(`[BEYOND] Loaded ${products.length} products from products.json.`);
+        }
+      } catch (err) {
+        console.warn('[BEYOND] Loading products via fetch failed, using fallback:', err);
+      }
+    }
+
+    if (products && products.length > 0) {
+      allProducts = products;
+      const newFeatured = products.filter(function (p) { return p.featured; });
+      if (newFeatured.length >= 4) {
+        const isDifferent = newFeatured.length !== featuredProducts.length ||
+          newFeatured.some(function (p, idx) { return !featuredProducts[idx] || featuredProducts[idx].id !== p.id; });
+
+        if (isDifferent) {
+          initHero(products);
+        } else {
+          featuredProducts = newFeatured;
+          render();
+        }
+      }
       updateBadges();
-      loop();
-      route();
-    });
+      if (window.location.hash && window.location.hash !== '#/' && window.location.hash !== '#') {
+        route();
+      }
+    }
+  }
+
+  // Synchronous immediate initialization: Hero becomes interactive & renders on first paint
+  initHero(INITIAL_PRODUCTS);
+  updateBadges();
+  loop();
+  route();
+
+  // Background catalog synchronization (non-blocking)
+  loadProductsAsync();
 })();
